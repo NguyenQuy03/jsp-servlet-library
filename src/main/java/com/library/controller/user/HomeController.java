@@ -32,6 +32,8 @@ public class HomeController extends HttpServlet {
 		} else {
 			RequestDispatcher rd = req.getRequestDispatcher("/views/user/home.jsp");
 			rd.forward(req, resp);
+			System.out.println("HomeS");
+			System.out.println("Check");
 		}
     }
 
