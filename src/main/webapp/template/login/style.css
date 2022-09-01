@@ -10,15 +10,14 @@ body {
 	align-items: center;
 }
 
-.sign-in-from {
-	min-width: 500px;
-}
 
-.sign-in-from form {
-	margin-top: 0 !important;
+#submitForm {
+	display: flex;
+	flex-direction: column;
 	padding: 30px;
+    background-color: #000;
 }
 
-.sign-in-from .sign-info {
+#submitForm input {
 	margin-top: 20px;
 }
