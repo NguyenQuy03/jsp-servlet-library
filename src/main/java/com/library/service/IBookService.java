@@ -9,4 +9,8 @@ public interface IBookService {
 	List<BookModel> findByCategoryId(Long cateforyId);
 	List<BookModel> findAll(Pageable pageable);
 	int getTotalItem();
+	
+	BookModel insert(BookModel bookModel);
+	BookModel update(BookModel updatedBook);
+	void delete(long[] ids);
 }

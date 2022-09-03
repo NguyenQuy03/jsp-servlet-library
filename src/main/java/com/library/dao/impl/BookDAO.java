@@ -53,7 +53,6 @@ public class BookDAO extends AbstractDAO<BookModel> implements IBookDAO {
 	@Override
 	public void delete(long id) {
 		String sql = "DELETE from book WHERE id = ?";
-		
 		update(sql, id);
 	}
 
@@ -68,6 +67,13 @@ public class BookDAO extends AbstractDAO<BookModel> implements IBookDAO {
 		String sql = "SELECT * FROM book WHERE author = ?";
 		
 		return query(sql, new BookMapper());	
+	}
+
+	@Override
+	public BookModel findOne(Long id) {
+		String sql = "SELECT * FROM book WHERE id = ?";
+		List<BookModel> books = query(sql, new BookMapper(), id);
+		return books.isEmpty() ? null : books.get(0);
 	}
 
 }

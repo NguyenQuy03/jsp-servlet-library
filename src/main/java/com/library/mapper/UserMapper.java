@@ -11,6 +11,7 @@ public class UserMapper implements IRowMapper<UserModel> {
 	public UserModel mapRow(ResultSet rs) {
 		try {
 			UserModel userModel = new UserModel();
+			userModel.setId(rs.getLong("id"));
 			userModel.setUserName(rs.getString("userName"));
 			userModel.setFullName(rs.getString("fullName"));
 			userModel.setPassword(rs.getString("password"));

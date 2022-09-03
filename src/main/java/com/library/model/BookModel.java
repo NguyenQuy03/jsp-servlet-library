@@ -6,11 +6,18 @@ public class BookModel extends AbstractModel<BookModel> {
 	private String thumbnail;
 	private String shortDescription;
 	private String author;
-	private Long categoryId;
 	private String linkDownload;
+	private Long categoryId;
+	private String categoryCode;
 	
 	public String getTitle() {
 		return title;
+	}
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
 	}
 	public void setTitle(String title) {
 		this.title = title;

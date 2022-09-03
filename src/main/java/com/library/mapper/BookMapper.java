@@ -11,7 +11,7 @@ public class BookMapper implements IRowMapper<BookModel> {
 	public BookModel mapRow(ResultSet rs) {
 		BookModel book = new BookModel();
 		try {
-			book.setId(rs.getInt("id"));
+			book.setId(rs.getLong("id"));
 			book.setTitle(rs.getString("title"));
 			book.setThumbnail(rs.getString("thumbnail"));
 			book.setShortDescription(rs.getString("shortDescription"));
