@@ -12,27 +12,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.library.constant.SystemConstant;
 import com.library.model.UserModel;
+import com.library.service.ICategoryService;
 import com.library.service.IUserService;
 import com.library.utils.FormUtil;
 import com.library.utils.SessionUtil;
 
-@WebServlet(urlPatterns = {"/home", "/login"})
+@WebServlet(urlPatterns = {"/home", "/login", "logout"})
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
 	private IUserService userService;
 	
+	@Inject
+	private ICategoryService categoryService;
+	
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
+		String view = "";
 		if (action != null && action.equals("login")) {
-			RequestDispatcher rd = req.getRequestDispatcher("/views/login/login.jsp");
-			rd.forward(req, resp);
+			view = "/views/login/login.jsp";
+		} else if (action != null && action.equals("logout")) {
+			SessionUtil.getInstance().deleteValue(req, "USERMODEL");
+			view = "/views/login/login.jsp";
 		} else {
-			RequestDispatcher rd = req.getRequestDispatcher("/views/user/home.jsp");
-			rd.forward(req, resp);
+			req.setAttribute("categories", categoryService.findAll());
+			view = "/views/user/home.jsp";
 		}
+		RequestDispatcher rd = req.getRequestDispatcher(view);
+		rd.forward(req, resp);
     }
 
 	@Override

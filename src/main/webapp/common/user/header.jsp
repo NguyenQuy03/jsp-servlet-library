@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/common/taglib.jsp"%>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -13,9 +14,21 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-              <li class="nav-item">
-                <a class="nav-link" href='<c:url value="/login?action=login"/>'>Đăng nhập</a>
-              </li>
+            
+            <c:if test = "${not empty USERMODEL}">
+					<li class="nav-item" style="color : #ccc; display : flex; align-items: center"><a class="nav-link"
+						href='<c:url value =""/>'></a>
+						Xin chào, ${USERMODEL.fullName}
+					</li>
+					<li class="nav-item"><a class="nav-link"
+						href='<c:url value ="/logout?action=logout"/>'>Đăng xuất</a>
+					</li>
+			</c:if>
+			<c:if test = "${empty USERMODEL}">
+					<li class="nav-item"><a class="nav-link"
+						href='<c:url value ="/login?action=login"/>'>Đăng nhập</a>
+					</li>
+			</c:if>
           </ul>
         </div>
       </div>

@@ -15,6 +15,7 @@
 			<div class="main-content-inner">
 				<div class="container">
 					<div class="page-content">
+						<h1>Thư viện:</h1>
 						<table class="table table-bordered">
 							<thead>
 								<tr>
