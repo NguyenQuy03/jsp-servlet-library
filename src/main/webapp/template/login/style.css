@@ -11,13 +11,9 @@ body {
 }
 
 
-#submitForm {
-	display: flex;
-	flex-direction: column;
-	padding: 30px;
-    background-color: #000;
-}
-
-#submitForm input {
-	margin-top: 20px;
+.login-form {
+    border: 1px solid #333;
+    background: currentColor;
+    padding: 40px;
+    min-width: 400px;
 }

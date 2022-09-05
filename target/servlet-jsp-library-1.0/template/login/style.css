@@ -14,10 +14,16 @@ body {
 #submitForm {
 	display: flex;
 	flex-direction: column;
+	min-width: 400px;
 	padding: 30px;
     background-color: #000;
 }
 
 #submitForm input {
-	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#submitForm input:last-child {
+	cursor: pointer;
+	padding: 5px
 }

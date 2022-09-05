@@ -40,7 +40,8 @@ public class BookDAO extends AbstractDAO<BookModel> implements IBookDAO {
 
 	@Override
 	public void update(BookModel updatedBook) {
-		StringBuilder sql = new StringBuilder("UPDATE book SET title = ?, thumbnail = ?,");
+		StringBuilder sql;
+		sql = new StringBuilder("UPDATE book SET title = ?, thumbnail = ?,");
 		sql.append(" shortDescription = ?, author = ?, categoryId = ?,");
 		sql.append(" linkDownload = ? WHERE id = ?");
 		

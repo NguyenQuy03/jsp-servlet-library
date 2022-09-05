@@ -10,13 +10,28 @@
 <body>
 	<!-- Form Submit -->
 	<div class="container">
-        <form id="submitForm" action="<c:url value='/login'/>" method="POST">
-			<label for="userName">User name</label> 
-			<input id="userName" type="text" name="userName" placeholder="UserName" required>
-			<label for="password">Password</label> 
-            <input id="password" type="password" name="password" placeholder="Password" autocomplete="current-password" required>
-            <input type="submit" class="login loginmodal-submit" name="action" value="login">
-		</form>
+		<div class="login-form">
+			<div class="main-div">
+				<c:if test="${not empty message}">
+					<div class="alert alert-${alert}">
+							${message}
+					</div>
+				</c:if>
+				<form action="<c:url value='/login'/>" id="formLogin" method="post">
+					<div class="form-group">
+						<input type="text" class="form-control" id="userName" name="userName"
+							placeholder="Tên đăng nhập">
+					</div>
+
+					<div class="form-group">
+						<input type="password" class="form-control" id="password" name="password"
+							placeholder="Mật khẩu">
+					</div>
+					<input type="hidden" value="login" name="action"/>
+					<button type="submit" class="btn btn-primary" >Đăng nhập</button>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

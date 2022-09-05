@@ -38,27 +38,27 @@ public class AuthorizationFilter implements Filter {
 			UserModel model = (UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL");
 			if (model != null) {
 				if (model.getRoleModel().getCode().equals(SystemConstant.USER)) {
-					resp.sendRedirect(req.getContextPath() + "/login?action=login");
+					resp.sendRedirect(req.getContextPath() + "/login?action=login&alert=danger&message=not_permission");
 				} else if (model.getRoleModel().getCode().equals(SystemConstant.PUBLISHER)) {
-					resp.sendRedirect(req.getContextPath() + "/login?action=login");
+					resp.sendRedirect(req.getContextPath() + "/login?action=login&alert=danger&message=not_permission");
 				} else if (model.getRoleModel().getCode().equals(SystemConstant.ADMIN)) {
 					filterChain.doFilter(servletRequest, servletResponse);
 				}
 			} else {
-				resp.sendRedirect(req.getContextPath() + "/login?action=login");
+				resp.sendRedirect(req.getContextPath() + "/login?action=login&alert=warning&message=not_login");
 			}
 		} else if(url.startsWith("/publisher"))  {
 			UserModel model = (UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL");
 			if (model != null) {
 				if (model.getRoleModel().getCode().equals(SystemConstant.USER)) {
-					resp.sendRedirect(req.getContextPath() + "/login?action=login");
+					resp.sendRedirect(req.getContextPath() + "/login?action=login&alert=danger&message=not_permission");
 				} else if (model.getRoleModel().getCode().equals(SystemConstant.ADMIN)) {
-					resp.sendRedirect(req.getContextPath() + "/login?action=login");
+					resp.sendRedirect(req.getContextPath() + "/login?action=login&alert=danger&message=not_permission");
 				} else if (model.getRoleModel().getCode().equals(SystemConstant.PUBLISHER)) {
 					filterChain.doFilter(servletRequest, servletResponse);
 				}
 			} else {
-				resp.sendRedirect(req.getContextPath() + "/login?action=login");
+				resp.sendRedirect(req.getContextPath() + "/login?action=login&alert=warning&message=not_login");
 			}
 		} else {
 			filterChain.doFilter(servletRequest, servletResponse);

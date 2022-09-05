@@ -1,6 +1,7 @@
 package com.library.controller.user;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -17,7 +18,7 @@ import com.library.service.IUserService;
 import com.library.utils.FormUtil;
 import com.library.utils.SessionUtil;
 
-@WebServlet(urlPatterns = {"/home", "/login", "logout"})
+@WebServlet(urlPatterns = {"/home", "/login", "/logout"})
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -27,21 +28,30 @@ public class HomeController extends HttpServlet {
 	@Inject
 	private ICategoryService categoryService;
 	
+	ResourceBundle bundle = ResourceBundle.getBundle("message");
+	
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
-		String view = "";
+		
 		if (action != null && action.equals("login")) {
-			view = "/views/login/login.jsp";
+			String alert = req.getParameter("alert");
+			String message = req.getParameter("message");
+			if (alert != null && message != null) {
+				req.setAttribute("alert", alert);
+				req.setAttribute("message", bundle.getString(message));
+			}
+			
+			RequestDispatcher rd = req.getRequestDispatcher("/views/login/login.jsp");
+			rd.forward(req, resp);
 		} else if (action != null && action.equals("logout")) {
 			SessionUtil.getInstance().deleteValue(req, "USERMODEL");
-			view = "/views/login/login.jsp";
+			resp.sendRedirect(req.getContextPath() +"/login?action=login");
 		} else {
 			req.setAttribute("categories", categoryService.findAll());
-			view = "/views/user/home.jsp";
+			RequestDispatcher rd = req.getRequestDispatcher("/views/user/home.jsp");
+			rd.forward(req, resp);
 		}
-		RequestDispatcher rd = req.getRequestDispatcher(view);
-		rd.forward(req, resp);
     }
 
 	@Override
@@ -62,7 +72,7 @@ public class HomeController extends HttpServlet {
     				resp.sendRedirect(req.getContextPath() +"/admin-home");
     			}
     		} else {
-    			resp.sendRedirect(req.getContextPath() + "/login?action=login");
+    			resp.sendRedirect(req.getContextPath() + "/login?action=login&alert=danger&message=username_or_password_invalid");
     		}
     	}
     }

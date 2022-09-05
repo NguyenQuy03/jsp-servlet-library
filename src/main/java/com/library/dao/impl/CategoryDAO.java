@@ -28,5 +28,4 @@ public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategory
 		return categories.isEmpty() ? null : categories.get(0);
 	}
 
-	
 }
