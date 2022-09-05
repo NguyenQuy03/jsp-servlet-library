@@ -15,6 +15,7 @@ import com.library.model.BookModel;
 import com.library.paging.Pageable;
 import com.library.paging.Paging;
 import com.library.service.IBookService;
+import com.library.service.ICategoryService;
 import com.library.sort.Sorter;
 import com.library.utils.FormUtil;
 
@@ -24,6 +25,9 @@ public class BookController extends HttpServlet {
 	
 	@Inject
 	private IBookService bookService;
+	
+	@Inject
+	private ICategoryService categoryService;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,6 +43,12 @@ public class BookController extends HttpServlet {
 			model.setListResult(bookService.findAll(pageable));
 			model.setTotalItem(bookService.getTotalItem());
 			model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getMaxPageItem() ));
+		} else if (model.getType().equals(SystemConstant.EDIT)) {
+			if (model.getId() != null) {
+				model = bookService.findOne(model.getId());
+			}
+			views = "/views/admin/book/edit.jsp";
+			req.setAttribute("categories", categoryService.findAll());
 		}
 		
 		req.setAttribute(SystemConstant.MODEL, model);

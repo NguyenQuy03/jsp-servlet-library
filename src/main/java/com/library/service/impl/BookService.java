@@ -67,4 +67,12 @@ public class BookService implements IBookService {
 		return bookDAO.findOne(updatedBook.getId());
 	}
 
+	@Override
+	public BookModel findOne(long id) {
+		BookModel bookModel = bookDAO.findOne(id);
+		CategoryModel categoryModel = categoryDAO.findOneById(bookModel.getCategoryId());
+		bookModel.setCategoryCode(categoryModel.getCode());
+		return bookModel;
+	}
+
 }
