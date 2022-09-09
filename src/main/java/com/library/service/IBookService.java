@@ -11,7 +11,7 @@ public interface IBookService {
 	BookModel findOne(long id);
 	int getTotalItem();
 	
-	BookModel insert(BookModel bookModel);
+	BookModel save(BookModel bookModel);
 	BookModel update(BookModel updatedBook);
 	void delete(long[] ids);
 }

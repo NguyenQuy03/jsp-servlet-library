@@ -7,6 +7,11 @@
 <meta charset="UTF-8">
 <title>Home Page</title>
 </head>
+<style>
+    body {
+        font-family: 'Open Sans', sans-serif !important;
+    }
+</style>
 <body>
 	<div class="row">
 

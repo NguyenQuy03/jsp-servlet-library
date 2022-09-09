@@ -11,19 +11,9 @@ body {
 }
 
 
-#submitForm {
-	display: flex;
-	flex-direction: column;
-	min-width: 400px;
-	padding: 30px;
-    background-color: #000;
-}
-
-#submitForm input {
-	margin-bottom: 20px;
-}
-
-#submitForm input:last-child {
-	cursor: pointer;
-	padding: 5px
+.login-form {
+    border: 1px solid #333;
+    background: currentColor;
+    padding: 40px;
+    min-width: 400px;
 }

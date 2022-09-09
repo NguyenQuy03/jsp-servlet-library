@@ -31,7 +31,7 @@ public class BookAPI extends HttpServlet {
 		
 		BookModel bookModel = HttpUtil.of(req.getReader()).toModel(BookModel.class);
 		bookModel.setCreatedBy(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getUserName());
-		bookModel = bookService.insert(bookModel);
+		bookModel = bookService.save(bookModel);
 		
 		mapper.writeValue(resp.getOutputStream(), bookModel);
 	}
@@ -42,11 +42,11 @@ public class BookAPI extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
 		
-		BookModel bookModel = HttpUtil.of(req.getReader()).toModel(BookModel.class);
-		bookModel.setModifiedBy(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getUserName());
-		bookModel = bookService.update(bookModel);
+		BookModel updatedBook = HttpUtil.of(req.getReader()).toModel(BookModel.class);
+		updatedBook.setModifiedBy(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getUserName());
+		updatedBook = bookService.update(updatedBook);
 		
-		mapper.writeValue(resp.getOutputStream(), bookModel);
+		mapper.writeValue(resp.getOutputStream(), updatedBook);
 	}
 	
 	@Override

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
+<c:url var="APIurl" value="/api-admin-book" />
+<c:url var="AdminBookURL" value="/admin-book" />
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +12,9 @@
 </head>
 
 <style>
-	
+    body {
+        font-family: 'Open Sans', sans-serif !important;
+    }
 </style>
 
 <body>
@@ -103,12 +107,14 @@
 							<br /> <br />
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input type="button"
-										class="btn btn-white btn-warning btn-bold"
-										value=
-											<c:if test ="${not empty model.id}">"Cập nhật bài viết"></c:if>
-											<c:if test ="${empty model.id}">"Thêm bài viết"</c:if>
-									/>
+									<div class="col-sm-12">
+	                                     <c:if test="${not empty model.id}">
+	                                          <input type="button" class="btn btn-white btn-warning btn-bold" value="Cập nhật sách" id="btnAddOrUpdateBook"/>
+	                                     </c:if>
+	                                     <c:if test="${empty model.id}">
+	                                          <input type="button" class="btn btn-white btn-warning btn-bold" value="Thêm sách" id="btnAddOrUpdateBook"/>
+	                                     </c:if>
+	                                </div>
 								</div>
 							</div>
 							<input type="hidden" value="${model.id}" id="id" name="id" />
@@ -119,29 +125,54 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript">
-		$("#btnAddOrUpdateNew").click(function(e) {
+	<script>
+		$("#btnAddOrUpdateBook").click(function(e) {
 			e.preventDefault();
-			var data = {};
-			var formData = $("#formSubmit").serializeArray();
+	        var data = {};
+	        var formData = $('#formSubmit').serializeArray();
+	        $.each(formData, function (i, v) {
+	            data[""+v.name+""] = v.value;
+	        });
 
-			var id = $("id").val();
-			if (!id) {
-				addBook();
-			} else {
-				updateBook();
-			}
-		})
+	        var id = $('#id').val();
+	        if (!id) {
+	            addBook(data);
+	        } else {
+	        	updateBook(data);
+	        }
+		});
 
-		function addBook() {
-			alert("clicked!");
-
+		function addBook(data) {
+			$.ajax({
+				url: "${APIurl}",
+				type: "POST",
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				dataType: "json",
+				success: function () {
+					window.location.href = "${AdminBookURL}?type=list&page=1&maxPageItem=2";
+				},
+				error: function (e) {
+					console.log(e);
+				}
+			});
 		}
 
-		function updateBook() {
-			alert("clicked!");
-			console.log(formData);
-		}
+		function updateBook(data) {
+	        $.ajax({
+	            url: '${APIurl}',
+	            type: 'PUT',
+	            contentType: 'application/json',
+	            data: JSON.stringify(data),
+	            dataType: 'json',
+	            success: function (result) {
+	            	window.location.href = "${AdminBookURL}?type=list&page=1&maxPageItem=2";
+	            },
+	            error: function (e) {
+	            	console.log(e);	            
+	            }
+	        });
+	    }
 	</script>
 </body>
 </html>

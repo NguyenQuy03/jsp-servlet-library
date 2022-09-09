@@ -30,7 +30,7 @@ public class AbstractDAO<E> implements IAbstractDAO<E> {
 		}
 	}
 
-	private void setPatameter(PreparedStatement statement, Object... parameters) {
+	private void setParameter(PreparedStatement statement, Object... parameters) {
 		for(int i = 0; i < parameters.length; i++) {
 			Object parameter = parameters[i];
 			int index = i + 1;
@@ -63,7 +63,7 @@ public class AbstractDAO<E> implements IAbstractDAO<E> {
 		try {
 			connection = getConnection(); 
 			statement = connection.prepareStatement(sql);
-			setPatameter(statement, parameters);
+			setParameter(statement, parameters);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {
@@ -99,8 +99,10 @@ public class AbstractDAO<E> implements IAbstractDAO<E> {
 			connection = getConnection(); 
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
-			setPatameter(statement, parameters);
+
+			setParameter(statement, parameters);
 			statement.executeUpdate();
+			
 			connection.commit();
 			
 		} catch (Exception e) {
@@ -130,23 +132,20 @@ public class AbstractDAO<E> implements IAbstractDAO<E> {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
-		Long id = null;
-		
 		try {
-			connection = getConnection(); 
+			Long id = null;
+			connection = getConnection();
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			setPatameter(statement, parameters);
+			setParameter(statement, parameters);
 			statement.executeUpdate();
-			
 			resultSet = statement.getGeneratedKeys();
-			while(resultSet.next()) {
-				id = resultSet.getLong("id");
+			if (resultSet.next()) {
+				id = resultSet.getLong(1);
 			}
 			connection.commit();
-			
 			return id;
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			if (connection != null) {
 				try {
 					connection.rollback();
@@ -154,21 +153,22 @@ public class AbstractDAO<E> implements IAbstractDAO<E> {
 					e1.printStackTrace();
 				}
 			}
-			return id;
 		} finally {
 			try {
-				if(statement != null) {
+				if (connection != null) {
+					connection.close();
+				}
+				if (statement != null) {
 					statement.close();
 				}
-				if(connection != null) {
-					connection.close();
-				} if (resultSet != null) {
+				if (resultSet != null) {
 					resultSet.close();
 				}
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
-		}	
+		}
+		return null;
 	}
 
 	@Override
@@ -181,7 +181,7 @@ public class AbstractDAO<E> implements IAbstractDAO<E> {
 		try {
 			connection = getConnection(); 
 			statement = connection.prepareStatement(sql);
-			setPatameter(statement, parameters);
+			setParameter(statement, parameters);
 			
 			resultSet = statement.executeQuery();
 			

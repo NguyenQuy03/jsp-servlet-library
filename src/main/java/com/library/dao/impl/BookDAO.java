@@ -29,13 +29,14 @@ public class BookDAO extends AbstractDAO<BookModel> implements IBookDAO {
 	}
 
 	@Override
-	public Long insert(BookModel bookModel) {
-		StringBuilder sql= new StringBuilder("INSERT INTO book (title, thumbnail");
-		sql.append(", shortDescription, author, categoryId, linkDownload)");
-		sql.append(" VALUES(?, ?, ?, ?, ?, ?);");
+	public Long save(BookModel bookModel) {
+		StringBuilder sql = new StringBuilder("INSERT INTO book (title, thumbnail,");
+		sql.append(" shortDescription, author, categoryId, linkDownload, createdDate, createdBy)");
+		sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 		return insert(sql.toString(), bookModel.getTitle(), bookModel.getThumbnail(),
 				bookModel.getShortDescription(), bookModel.getAuthor(), bookModel.getCategoryId(),
-				bookModel.getLinkDownload());
+				bookModel.getLinkDownload(), bookModel.getCreatedDate(), bookModel.getCreatedBy());
+
 	}
 
 	@Override
@@ -43,10 +44,13 @@ public class BookDAO extends AbstractDAO<BookModel> implements IBookDAO {
 		StringBuilder sql;
 		sql = new StringBuilder("UPDATE book SET title = ?, thumbnail = ?,");
 		sql.append(" shortDescription = ?, author = ?, categoryId = ?,");
-		sql.append(" linkDownload = ? WHERE id = ?");
+		sql.append(" linkDownload = ?, createdDate = ?, createdBy = ?,");
+		sql.append(" modifiedDate = ?, modifiedBy = ? WHERE id = ?");
 		
 		update(sql.toString(), updatedBook.getTitle(), updatedBook.getThumbnail(), updatedBook.getShortDescription(),
-				updatedBook.getAuthor(), updatedBook.getCategoryId()
+					updatedBook.getAuthor(), updatedBook.getCategoryId(), updatedBook.getLinkDownload(),
+					updatedBook.getCreatedDate(), updatedBook.getCreatedBy(), updatedBook.getModifiedDate(),
+					updatedBook.getModifiedBy(), updatedBook.getId()
 				);
 		
 	}

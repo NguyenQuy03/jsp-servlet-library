@@ -9,8 +9,8 @@ public class BookMapper implements IRowMapper<BookModel> {
 
 	@Override
 	public BookModel mapRow(ResultSet rs) {
-		BookModel book = new BookModel();
 		try {
+			BookModel book = new BookModel();
 			book.setId(rs.getLong("id"));
 			book.setTitle(rs.getString("title"));
 			book.setThumbnail(rs.getString("thumbnail"));
@@ -20,18 +20,16 @@ public class BookMapper implements IRowMapper<BookModel> {
 			book.setAuthor(rs.getString("author"));
 			book.setCreatedDate(rs.getTimestamp("createdDate"));
 			book.setCreatedBy(rs.getString("createdBy"));
-			if (rs.getTimestamp("modifiedDate") != null) {
-				book.setModifiedDate(rs.getTimestamp("modifiedDate"));
+			if (rs.getTimestamp("modifieddate") != null) {
+				book.setModifiedDate(rs.getTimestamp("modifieddate"));
 			}
-			if (rs.getString("modifiedBy") != null) {
-				book.setModifiedBy(rs.getString("modifiedBy"));
+			if (rs.getString("modifiedby") != null) {
+				book.setModifiedBy(rs.getString("modifiedby"));
 			}
-
+			return book;
 		} catch (SQLException e) {
 			return null;
 		}
-
-		return book;
 	}
 	
 }

@@ -13,7 +13,7 @@ public interface IBookDAO extends IAbstractDAO<BookModel> {
 	int getTotalItem();
 	List<BookModel> findAllByAuthor();
 	
-	Long insert(BookModel bookModel);
+	Long save(BookModel bookModel);
 	void update(BookModel updatedBook);
 	void delete(long id);
 }

@@ -43,12 +43,12 @@ public class BookService implements IBookService {
 	}
 
 	@Override
-	public BookModel insert(BookModel bookModel) {
+	public BookModel save(BookModel bookModel) {
 		bookModel.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		
 		CategoryModel categoryModel = categoryDAO.findOneByCode(bookModel.getCategoryCode());
 		bookModel.setCategoryId(categoryModel.getId());
-		Long bookId = bookDAO.insert(bookModel);
+		Long bookId = bookDAO.save(bookModel);
 		
 		return bookDAO.findOne(bookId);
 	}
@@ -58,10 +58,10 @@ public class BookService implements IBookService {
 		BookModel preBook = bookDAO.findOne(updatedBook.getId());
 		CategoryModel categoryModel = categoryDAO.findOneByCode(updatedBook.getCategoryCode());
 		
-		preBook.setCategoryId(categoryModel.getId());
 		updatedBook.setCreatedDate(preBook.getCreatedDate());
 		updatedBook.setCreatedBy(preBook.getCreatedBy());
 		updatedBook.setModifiedDate(new Timestamp(System.currentTimeMillis()));
+		updatedBook.setCategoryId(categoryModel.getId());
 		
 		bookDAO.update(updatedBook);
 		return bookDAO.findOne(updatedBook.getId());

@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>List Book</title>
 </head>
+<style>
+    body {
+        font-family: 'Open Sans', sans-serif !important;
+    }
+</style>
 
 <body>
 	<div class="main-content">
@@ -81,14 +86,8 @@
 		</form>
 	</div>
 	<script type="text/javascript">
-		var totalPage = $
-		{
-			model.totalPage
-		};
-		var currPage = $
-		{
-			model.page
-		};
+		var totalPage = ${model.totalPage};
+		var currPage = ${model.page};
 		var maxPageItem = 2;
 		$(function() {
 			window.pagObj = $('#pagination').twbsPagination({
