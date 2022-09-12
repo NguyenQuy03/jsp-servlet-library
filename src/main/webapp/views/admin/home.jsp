@@ -7,9 +7,6 @@
 <title>Admin Home</title>
 </head>
 <style>
-    body {
-        font-family: 'Open Sans', sans-serif !important;
-    }
 </style>
 <body>
 	<div class="main-content">

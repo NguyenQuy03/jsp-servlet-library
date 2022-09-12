@@ -3,6 +3,13 @@
 <%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 
+<style>
+	li a {
+		display: flex;
+		align-items: center;
+	}
+</style>
+
 <div id="navbar" class="navbar navbar-default ace-save-state">
 	<div class="navbar-container ace-save-state" id="navbar-container">
 		<div class="navbar-header pull-left">

@@ -8,10 +8,9 @@
 	    height: 24px;
 	    display: inline-flex;
 	    justify-content: center;
-	    text-align: center;
-	    margin-right: 15px;
 	    align-items: center;
-	    margin-top: -2px;
+	    text-align: center;
+	    margin: -2px 15px 0 7px;
 	}
 	
 	.nav-list a button:focus {

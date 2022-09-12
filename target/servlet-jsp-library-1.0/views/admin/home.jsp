@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Admin Home</title>
 </head>
+<style>
+</style>
 <body>
 	<div class="main-content">
 		<div class="main-content-inner">

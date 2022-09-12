@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="APIurl" value="/api-admin-book" />
+<c:url var="APIAdminURL" value="/api-admin-book" />
 <c:url var="AdminBookURL" value="/admin-book" />
 
 <!DOCTYPE html>
@@ -12,9 +12,6 @@
 </head>
 
 <style>
-    body {
-        font-family: 'Open Sans', sans-serif !important;
-    }
 </style>
 
 <body>
@@ -63,7 +60,7 @@
 									</c:if>
 								</div>
 							</div>
-							<br /> <br />
+							<br /> <br /> <br />
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right">Tiêu đề</label>
 								<div class="col-sm-9">
@@ -101,7 +98,7 @@
 								<label class="col-sm-3 control-label no-padding-right">Link tải sách</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" id="linkDownload"
-										name="linkDownload" value="${model.linkDownload}" />
+										name="linkDownload" value="${model.linkDownload}"  />
 								</div>
 							</div>
 							<br /> <br />
@@ -109,10 +106,10 @@
 								<div class="col-sm-12">
 									<div class="col-sm-12">
 	                                     <c:if test="${not empty model.id}">
-	                                          <input type="button" class="btn btn-white btn-warning btn-bold" value="Cập nhật sách" id="btnAddOrUpdateBook"/>
+	                                          <input type="submit" class="btn btn-white btn-warning btn-bold" value="Cập nhật sách" id="btnAddOrUpdateBook"/>
 	                                     </c:if>
 	                                     <c:if test="${empty model.id}">
-	                                          <input type="button" class="btn btn-white btn-warning btn-bold" value="Thêm sách" id="btnAddOrUpdateBook"/>
+	                                          <input type="submit" class="btn btn-white btn-warning btn-bold" value="Thêm sách" id="btnAddOrUpdateBook"/>
 	                                     </c:if>
 	                                </div>
 								</div>
@@ -144,7 +141,7 @@
 
 		function addBook(data) {
 			$.ajax({
-				url: "${APIurl}",
+				url: "${APIAdminURL}",
 				type: "POST",
 				contentType: 'application/json',
 				data: JSON.stringify(data),
@@ -160,7 +157,7 @@
 
 		function updateBook(data) {
 	        $.ajax({
-	            url: '${APIurl}',
+	            url: '${APIAdminURL}',
 	            type: 'PUT',
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),
