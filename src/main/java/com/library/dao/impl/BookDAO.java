@@ -2,6 +2,8 @@ package com.library.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.library.dao.IBookDAO;
 import com.library.mapper.BookMapper;
 import com.library.model.BookModel;
@@ -19,7 +21,7 @@ public class BookDAO extends AbstractDAO<BookModel> implements IBookDAO {
 	@Override
 	public List<BookModel> findAll(Pageable pageable) {
 		StringBuilder sql = new StringBuilder("SELECT * FROM book");
-		if (pageable.getSorter().getSortName() != null && pageable.getSorter().getSortBy() != null) {
+		if (pageable.getSorter() != null && StringUtils.isNotBlank(pageable.getSorter().getSortName())&& StringUtils.isNotBlank(pageable.getSorter().getSortBy())) {
 			sql.append(" ORDER BY " + pageable.getSorter().getSortName() + " " +pageable.getSorter().getSortBy());
 		}
 		if (pageable.getLimit() != null && pageable.getOffset() != null) {

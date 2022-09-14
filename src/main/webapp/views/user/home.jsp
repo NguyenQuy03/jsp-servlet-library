@@ -16,9 +16,9 @@
 
 			<h1 class="my-4">Danh mục</h1>
 			<div class="list-group">
-				<a href="#" class="list-group-item">Category 1</a>
-				<a href="#" class="list-group-item">Category 2</a>
-				<a href="#" class="list-group-item">Category 3</a>
+				<c:forEach var="item" items="${categories}">
+					<a href="#" class="list-group-item">${item.name}</a>
+				</c:forEach>
 			</div>
 
 		</div>

@@ -147,10 +147,10 @@
 				data: JSON.stringify(data),
 				dataType: "json",
 				success: function () {
-					window.location.href = "${AdminBookURL}?type=list&page=1&maxPageItem=2";
+            		"${AdminBookURL}?type=list&page=1&maxPageItem=2&alertType=success&alertMessage=insert_success";
 				},
 				error: function (e) {
-					console.log(e);
+					"${AdminBookURL}?type=list&page=1&maxPageItem=2&alertType=danger&alertMessage=insert_error";
 				}
 			});
 		}
@@ -163,10 +163,12 @@
 	            data: JSON.stringify(data),
 	            dataType: 'json',
 	            success: function (result) {
-	            	window.location.href = "${AdminBookURL}?type=list&page=1&maxPageItem=2";
+	            	window.location.href = 
+	            		"${AdminBookURL}?type=list&page=1&maxPageItem=2&alertType=success&alertMessage=update_success";
 	            },
 	            error: function (e) {
-	            	console.log(e);	            
+	            	window.location.href = 
+						"${AdminBookURL}?type=list&page=1&maxPageItem=2&alertType=danger&alertMessage=update_error";
 	            }
 	        });
 	    }

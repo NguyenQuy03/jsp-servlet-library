@@ -7,4 +7,5 @@ public class SystemConstant {
 	public static final String PUBLISHER = "publisher";
 	public static final String LIST = "list";
 	public static final String EDIT = "edit";
+
 }

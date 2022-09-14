@@ -3,6 +3,13 @@
 <%@include file="/common/taglib.jsp"%>
 <!DOCTYPE html>
 
+<style>
+	ul li a {
+		display: flex !important;
+		align-items: center;
+	}
+</style>
+
 <div id="navbar" class="navbar navbar-default ace-save-state">
 	<div class="navbar-container ace-save-state" id="navbar-container">
 		<div class="navbar-header pull-left">
@@ -17,13 +24,16 @@
 			class="navbar-buttons navbar-header pull-right collapse navbar-collapse"
 			role="navigation">
 			<ul class="nav ace-nav">
-				<li class="light-blue dropdown-modal"><a data-toggle="dropdown"
-					href="#" class="dropdown-toggle"> Xin chào, ${USERMODEL.fullName}</a>
-					<li class="light-blue dropdown-modal"><a
-						href='<c:url value="/thoat?action=logout"/>'> <i
-							class="ace-icon fa fa-power-off"></i> Thoát
+				<li class="light-blue dropdown-modal">
+					<a data-toggle="dropdown"
+						href='<c:url value="/admin-home"/>'
+						class="dropdown-toggle"> Xin chào, ${USERMODEL.fullName}
 					</a>
-					</li>
+				</li>
+				<li class="light-blue dropdown-modal">
+					<a href='<c:url value="/logout?action=logout"/>'>
+						<i class="ace-icon fa fa-power-off"></i> Thoát
+					</a>
 				</li>
 			</ul>
 		</div>
