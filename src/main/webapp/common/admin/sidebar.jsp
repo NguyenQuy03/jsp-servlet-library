@@ -35,26 +35,6 @@
                 Quản lí sách
             </a>
         </li>
-        
-        
-        <li >
-            <a href="#" class="dropdown-toggle">
-	            <button class="btn btn-info">
-	                <i class="fa fa-list" aria-hidden="true"></i>
-	            </button>
-                Quản lí thể loại
-            </a>
-            <b class="arrow"></b>
-        </li>
-        
-        <li>
-            <a href="#" class="dropdown-toggle">
-                <button class="btn btn-warning">
-                	<i class="ace-icon fa fa-users"></i>
-            	</button>
-                Quản lí tác giả
-            </a>
-        </li>
     </ul>
     <div class="sidebar-toggle sidebar-collapse">
         <i class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>

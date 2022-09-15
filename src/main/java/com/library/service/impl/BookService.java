@@ -9,6 +9,7 @@ import com.library.dao.IBookDAO;
 import com.library.dao.ICategoryDAO;
 import com.library.model.BookModel;
 import com.library.model.CategoryModel;
+import com.library.model.RoleModel;
 import com.library.paging.Pageable;
 import com.library.service.IBookService;
 
@@ -73,6 +74,16 @@ public class BookService implements IBookService {
 		CategoryModel categoryModel = categoryDAO.findOneById(bookModel.getCategoryId());
 		bookModel.setCategoryCode(categoryModel.getCode());
 		return bookModel;
+	}
+
+	@Override
+	public List<BookModel> findAllByRole(Pageable pageable, RoleModel roleModel) {
+		return bookDAO.findAllByRole(pageable, roleModel);
+	}
+
+	@Override
+	public int getTotalItemByRole(String createdBy) {
+		return bookDAO.getTotalItemByRole(createdBy);
 	}
 
 }

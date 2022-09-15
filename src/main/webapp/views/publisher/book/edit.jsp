@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="APIAdminURL" value="/api-admin-book" />
-<c:url var="AdminBookURL" value="/admin-book" />
+<c:url var="APIPublisherURL" value="/api-publisher-book" />
+<c:url var="PublisherBookURL" value="/publisher-book" />
 
 <!DOCTYPE html>
 <html>
@@ -141,36 +141,36 @@
 
 		function addBook(data) {
 			$.ajax({
-				url: "${APIAdminURL}",
+				url: "${APIPublisherURL}",
 				type: "POST",
 				contentType: 'application/json',
 				data: JSON.stringify(data),
 				dataType: "json",
 				success: function () {
 	            	window.location.href = 
-            		"${AdminBookURL}?type=list&page=1&maxPageItem=2&alertType=success&alertMessage=insert_success";
+						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=success&alertMessage=delete_success";
 				},
 				error: function (e) {
 	            	window.location.href = 
-					"${AdminBookURL}?type=list&page=1&maxPageItem=2&alertType=danger&alertMessage=insert_error";
+						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=danger&alertMessage=delete_error";
 				}
 			});
 		}
 
 		function updateBook(data) {
 	        $.ajax({
-	            url: '${APIAdminURL}',
+	            url: '${APIPublisherURL}',
 	            type: 'PUT',
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),
 	            dataType: 'json',
 	            success: function (result) {
 	            	window.location.href = 
-	            		"${AdminBookURL}?type=list&page=1&maxPageItem=2&alertType=success&alertMessage=update_success";
+						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=success&alertMessage=delete_success";
 	            },
 	            error: function (e) {
 	            	window.location.href = 
-						"${AdminBookURL}?type=list&page=1&maxPageItem=2&alertType=danger&alertMessage=update_error";
+						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=danger&alertMessage=delete_error";
 	            }
 	        });
 	    }

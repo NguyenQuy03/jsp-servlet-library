@@ -8,10 +8,9 @@
 	    height: 24px;
 	    display: inline-flex;
 	    justify-content: center;
-	    text-align: center;
-	    margin-right: 15px;
 	    align-items: center;
-	     margin-top: -2px;  
+	    text-align: center;
+	    margin: -2px 15px 0 7px;
 	}
 	
 	.nav-list a button:focus {
@@ -29,7 +28,7 @@
     </script>
     <ul class="nav nav-list">
         <li>
-            <a href="#" class="dropdown-toggle">
+            <a href='<c:url value="/publisher-book?type=list&page=1&maxPageItem=2&sortName=title&sortBy=desc" />'>
                 <button class="btn btn-success">
                 	<i class="fa fa-book" aria-hidden="true"></i>
             	</button>
