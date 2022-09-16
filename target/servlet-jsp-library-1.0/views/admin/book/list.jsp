@@ -28,7 +28,7 @@
 				<div class="container">
 					<div class="page-content">
 						<div class="alert-container">
-							<c:if test="not empty alertMessage">
+							<c:if test="${not empty alertMessage}">
 								<div class="alert alert-${alertType}" role="alert">
 								  	${alertMessage}
 								</div>
@@ -123,7 +123,16 @@
 			})
 		});
 		
-		checkBox = document.getElementById('checkAll').addEventListener('click', event => {
+		var alertElement = $(".alert");
+		if(alertElement) {
+			setTimeout(() => {
+				alertElement.remove();
+			}, 3000);
+		}
+		
+		var checkAll = document.getElementById('checkAll');
+		
+		checkAll.addEventListener('click', event => {
 			if(event.target.checked) {
 				$('tbody input[type=checkbox]').prop('checked',true);
 				$("#btnDelete").removeClass("disabled");
@@ -133,23 +142,20 @@
 			}
 		});
 		
-		var alertElement = $(".alert");
-		if (alertElement) {
-			setTimeout(() => {
-				alertElement.remove();
-			}, 3000);		
-		}
 
 		var checkBoxes = $('tbody input[type=checkbox]');
 		checkBoxes.map((index, item) => {
 				item.addEventListener("click", e => {
-					if(checkBoxes[0].checked || checkBoxes[1].checked) {
+					if(checkBoxes[0].checked && checkBoxes[1].checked) {
+						$("#checkAll").prop('checked', true);
 						$("#btnDelete").removeClass("disabled");
-					} else {
+					} else if(checkBoxes[0].checked || checkBoxes[1].checked) {
+						$("#btnDelete").removeClass("disabled");
+						$("#checkAll").prop('checked', false);
+					}  else {
 						$("#btnDelete").addClass("disabled");
 					}
 				})
-			
 		})
 
 		$("#btnDelete").click(function() {

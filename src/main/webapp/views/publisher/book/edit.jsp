@@ -148,11 +148,11 @@
 				dataType: "json",
 				success: function () {
 	            	window.location.href = 
-						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=success&alertMessage=delete_success";
+						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=success&alertMessage=insert_success";
 				},
-				error: function (e) {
+				error: function () {
 	            	window.location.href = 
-						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=danger&alertMessage=delete_error";
+						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=danger&alertMessage=insert_error";
 				}
 			});
 		}
@@ -164,13 +164,13 @@
 	            contentType: 'application/json',
 	            data: JSON.stringify(data),
 	            dataType: 'json',
-	            success: function (result) {
+	            success: function () {
 	            	window.location.href = 
-						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=success&alertMessage=delete_success";
+						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=success&alertMessage=update_success";
 	            },
-	            error: function (e) {
+	            error: function () {
 	            	window.location.href = 
-						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=danger&alertMessage=delete_error";
+						"${PublisherBookURL}?type=list&page=1&maxPageItem=2&alertType=danger&alertMessage=update_error";
 	            }
 	        });
 	    }

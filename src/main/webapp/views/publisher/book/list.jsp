@@ -144,19 +144,44 @@
 		
 
 		var checkBoxes = $('tbody input[type=checkbox]');
+		
+		function allCheckBoxChecked() {
+			var result = true;
+			for(var i = 0; i < checkBoxes.length; i++) {
+			 	if(checkBoxes[i].checked == true) {
+			 		result = true;
+			 	} else {
+			 		result = false;
+				}
+			}
+			return result;
+		}
+		
+		function leastOneCheckBoxChecked() {
+			var result = true;
+			for(var i = 0; i < checkBoxes.length; i++) {
+			 	if(checkBoxes[i].checked == true) {
+			 		return result = true;
+			 	} else {
+			 		 result = false;
+				}
+			}
+			return result;
+		}
+		
 		checkBoxes.map((index, item) => {
-				item.addEventListener("click", e => {
-					if(checkBoxes[0].checked && checkBoxes[1].checked) {
-						$("#checkAll").prop('checked', true);
-						$("#btnDelete").removeClass("disabled");
-					} else if(checkBoxes[0].checked || checkBoxes[1].checked) {
-						$("#btnDelete").removeClass("disabled");
-						$("#checkAll").prop('checked', false);
-					}  else {
-						$("#btnDelete").addClass("disabled");
-					}
-				})
-		})
+			item.addEventListener("click", e => {
+				if(allCheckBoxChecked()) {
+					$("#checkAll").prop('checked', true);
+				} else if(leastOneCheckBoxChecked()) {
+					$("#btnDelete").removeClass("disabled");
+					$("#checkAll").prop('checked', false);
+				}  else {
+					$("#btnDelete").addClass("disabled");
+					$("#checkAll").prop('checked', false);
+				}
+			})
+		})		
 
 		$("#btnDelete").click(function() {
 			var data = {};

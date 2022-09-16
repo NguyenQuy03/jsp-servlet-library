@@ -11,17 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.library.model.BookModel;
+import com.library.model.RoleModel;
 import com.library.model.UserModel;
 import com.library.service.IBookService;
+import com.library.service.IRoleService;
+import com.library.service.IUserService;
 import com.library.utils.HttpUtil;
 import com.library.utils.SessionUtil;
 
-@WebServlet(urlPatterns = {"/publisher-admin-book"})
+@WebServlet(urlPatterns = {"/api-publisher-book"})
 public class BookAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
 	private IBookService bookService;
+	
+	@Inject
+	private IUserService userService;
+	
+	@Inject 
+	private IRoleService roleService;
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +39,12 @@ public class BookAPI extends HttpServlet {
 		resp.setContentType("application/json");
 		
 		BookModel bookModel = HttpUtil.of(req.getReader()).toModel(BookModel.class);
-		bookModel.setCreatedBy(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getUserName());
+		UserModel userModel = userService.findByUserName(
+				((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getUserName()
+			);
+		RoleModel roleModel = roleService.findOneById(userModel.getRoleId());
+		
+		bookModel.setCreatedBy(roleModel.getCode());
 		bookModel = bookService.save(bookModel);
 		
 		mapper.writeValue(resp.getOutputStream(), bookModel);
@@ -43,6 +57,7 @@ public class BookAPI extends HttpServlet {
 		resp.setContentType("application/json");
 		
 		BookModel updatedBook = HttpUtil.of(req.getReader()).toModel(BookModel.class);
+		
 		updatedBook.setModifiedBy(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getUserName());
 		updatedBook = bookService.update(updatedBook);
 		

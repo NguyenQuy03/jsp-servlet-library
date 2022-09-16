@@ -17,4 +17,11 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO {
 		
 	}
 
+	@Override
+	public UserModel findByUserName(String userName) {
+		String sql = "SELECT * FROM user WHERE userName = ?";
+		List<UserModel> users = query(sql, new UserMapper(), userName);
+		return users.isEmpty() ? null : users.get(0);
+	}
+
 }
