@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="<c:url value='/template/paging/jquery.twbsPagination.js' />"></script>
+    <link href="<c:url value='/template/edit/list.css' />" rel="stylesheet" type="text/css" media="all"/>
+    
 </head>
 <body class="no-skin">
 	<!-- header -->

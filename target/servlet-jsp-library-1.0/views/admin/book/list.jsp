@@ -10,16 +10,6 @@
 <meta charset="UTF-8">
 <title>List Book</title>
 </head>
-<style>
-	table th {
-		min-width: 80px;
-	}
-	
-	#btnDelete {
-		margin-right: 10px !important;
-	}
-
-</style>
 
 <body>
 	<div class="main-content">
@@ -47,8 +37,7 @@
 										<button id="btnDelete" type="button" 
 											class=" disabled dt-button buttons-html5 btn btn-white btn-primary btn-bold"
 											data-toggle="tooltip" title='Xóa sách'>
-											<span> <i class="fa fa-trash-o bigger-110 pink"></i>
-											</span>
+											<span> <i class="fa fa-trash-o bigger-110 pink"></i></span>
 										</button>
 									</div>
 								</div>
@@ -142,20 +131,40 @@
 			}
 		});
 		
-
 		var checkBoxes = $('tbody input[type=checkbox]');
+
+		function allCheckBoxChecked() {
+			var result = true;
+			for(var i = 0; i < checkBoxes.length; i++) {
+			 	if(checkBoxes[i].checked == false) {
+			 		result = false;
+			 	}
+			}
+			return result;
+		}
+		
+		function leastOneCheckBoxChecked() {
+			var result = false;
+			for(var i = 0; i < checkBoxes.length; i++) {
+			 	if(checkBoxes[i].checked == true) {
+			 		result = true;
+			 	}
+			}
+			return result;
+		}
+		
 		checkBoxes.map((index, item) => {
-				item.addEventListener("click", e => {
-					if(checkBoxes[0].checked && checkBoxes[1].checked) {
-						$("#checkAll").prop('checked', true);
-						$("#btnDelete").removeClass("disabled");
-					} else if(checkBoxes[0].checked || checkBoxes[1].checked) {
-						$("#btnDelete").removeClass("disabled");
-						$("#checkAll").prop('checked', false);
-					}  else {
-						$("#btnDelete").addClass("disabled");
-					}
-				})
+			item.addEventListener("click", e => {
+				if(allCheckBoxChecked()) {
+					$("#checkAll").prop('checked', true);
+				} else if(leastOneCheckBoxChecked()) {
+					$("#btnDelete").removeClass("disabled");
+					$("#checkAll").prop('checked', false);
+				}  else {
+					$("#btnDelete").addClass("disabled");
+					$("#checkAll").prop('checked', false);
+				}
+			})
 		})
 
 		$("#btnDelete").click(function() {

@@ -12,9 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.library.constant.SystemConstant;
+import com.library.model.BookModel;
 import com.library.model.UserModel;
+import com.library.paging.Pageable;
+import com.library.paging.Paging;
+import com.library.service.IBookService;
 import com.library.service.ICategoryService;
 import com.library.service.IUserService;
+import com.library.sort.Sorter;
 import com.library.utils.FormUtil;
 import com.library.utils.SessionUtil;
 
@@ -24,6 +29,9 @@ public class HomeController extends HttpServlet {
 	
 	@Inject
 	private IUserService userService;
+	
+	@Inject
+	private IBookService bookService;
 	
 	@Inject
 	private ICategoryService categoryService;
@@ -48,7 +56,24 @@ public class HomeController extends HttpServlet {
 			SessionUtil.getInstance().deleteValue(req, "USERMODEL");
 			resp.sendRedirect(req.getContextPath() +"/login?action=login");
 		} else {
+			BookModel model = FormUtil.toModel(BookModel.class, req);
+			Pageable pageable = new Paging(model.getPage(), model.getMaxPageItem(),
+					new Sorter(model.getSortName(), model.getSortBy()));
+			
+			if (model.getCategoryId() != null) {
+				model.setListResult(bookService.findAllByCategoryId(model.getCategoryId(), pageable));
+				model.setTotalItem(bookService.getTotalItemByCategoryId(model.getCategoryId()));
+				req.setAttribute("books", bookService.findAllByCategoryId(model.getCategoryId(),pageable));
+			} else {
+				model.setListResult(bookService.findAll(pageable));
+				model.setTotalItem(bookService.getTotalItem());
+				req.setAttribute("books", bookService.findAll(pageable));
+			}
+			
+			model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getMaxPageItem() ));
+			
 			req.setAttribute("categories", categoryService.findAll());
+			req.setAttribute(SystemConstant.MODEL, model);
 			RequestDispatcher rd = req.getRequestDispatcher("/views/user/home.jsp");
 			rd.forward(req, resp);
 		}
@@ -65,7 +90,7 @@ public class HomeController extends HttpServlet {
     		
     		if (model != null) {
     			if (model.getRoleModel().getCode().equals(SystemConstant.USER)) {
-    				resp.sendRedirect(req.getContextPath() + "/home");
+    				resp.sendRedirect(req.getContextPath() + "/home?page=1&maxPageItem=3");
     			} else if (model.getRoleModel().getCode().equals(SystemConstant.PUBLISHER)) {
     				resp.sendRedirect(req.getContextPath() + "/publisher-home");
     			} else if (model.getRoleModel().getCode().equals(SystemConstant.ADMIN)) {

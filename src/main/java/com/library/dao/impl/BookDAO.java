@@ -7,18 +7,24 @@ import org.apache.commons.lang.StringUtils;
 import com.library.dao.IBookDAO;
 import com.library.mapper.BookMapper;
 import com.library.model.BookModel;
-import com.library.model.RoleModel;
+import com.library.model.UserModel;
 import com.library.paging.Pageable;
 
 public class BookDAO extends AbstractDAO<BookModel> implements IBookDAO {
 
 	@Override
-	public List<BookModel> findByCategoryId(Long categoryId) {
-		String sql = "SELECT * FROM book WHERE categoryId = ?";
-		
-		return query(sql, new BookMapper(), categoryId);
+	public List<BookModel> findAllByCategoryId(Long categoryId, Pageable pageable) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM book");
+		sql.append(" WHERE categoryId = ?");
+		if (pageable.getSorter() != null && StringUtils.isNotBlank(pageable.getSorter().getSortName())&& StringUtils.isNotBlank(pageable.getSorter().getSortBy())) {
+			sql.append(" ORDER BY " + pageable.getSorter().getSortName() + " " +pageable.getSorter().getSortBy());
+		}
+		if (pageable.getLimit() != null && pageable.getOffset() != null) {
+			sql.append(" LIMIT " + pageable.getLimit() + " OFFSET " + pageable.getOffset());
+		}
+		return query(sql.toString(), new BookMapper(), categoryId);	
 	}
-
+	
 	@Override
 	public List<BookModel> findAll(Pageable pageable) {
 		StringBuilder sql = new StringBuilder("SELECT * FROM book");
@@ -71,7 +77,7 @@ public class BookDAO extends AbstractDAO<BookModel> implements IBookDAO {
 	}
 
 	@Override
-	public List<BookModel> findAllByRole(Pageable pageable, RoleModel roleModel) {
+	public List<BookModel> findAllByPublisherName(Pageable pageable, UserModel userModel) {
 		
 		StringBuilder sql = new StringBuilder("SELECT * FROM book WHERE createdBy = ?");
 		if (pageable.getSorter() != null && StringUtils.isNotBlank(pageable.getSorter().getSortName())&& StringUtils.isNotBlank(pageable.getSorter().getSortBy())) {
@@ -80,21 +86,26 @@ public class BookDAO extends AbstractDAO<BookModel> implements IBookDAO {
 		if (pageable.getLimit() != null && pageable.getOffset() != null) {
 			sql.append(" LIMIT " + pageable.getLimit() + " OFFSET " + pageable.getOffset());
 		}
-		return query(sql.toString(), new BookMapper(), roleModel.getCode());
+		return query(sql.toString(), new BookMapper(), userModel.getUserName());
 	}
 
 	@Override
 	public BookModel findOne(Long id) {
-		
 		String sql = "SELECT * FROM book WHERE id = ?";
 		List<BookModel> books = query(sql, new BookMapper(), id);
 		return books.isEmpty() ? null : books.get(0);
 	}
 
 	@Override
-	public int getTotalItemByRole(String createdBy) {
+	public int getTotalItemByPublisherName(String createdBy) {
 		String sql = "SELECT count(*) FROM book Where createdBy = ?";
 		return count(sql, createdBy);
+	}
+
+	@Override
+	public int getTotalItemByCategoryId(Long categoryId) {
+		String sql = "SELECT count(*) FROM book Where categoryId = ?";
+		return count(sql, categoryId);
 	}
 
 }

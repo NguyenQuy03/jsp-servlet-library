@@ -13,13 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.library.constant.SystemConstant;
 import com.library.model.BookModel;
-import com.library.model.RoleModel;
 import com.library.model.UserModel;
 import com.library.paging.Pageable;
 import com.library.paging.Paging;
 import com.library.service.IBookService;
 import com.library.service.ICategoryService;
-import com.library.service.IRoleService;
 import com.library.sort.Sorter;
 import com.library.utils.FormUtil;
 import com.library.utils.SessionUtil;
@@ -27,9 +25,6 @@ import com.library.utils.SessionUtil;
 @WebServlet(urlPatterns = {"/publisher-book"})
 public class BookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	@Inject
-	private IRoleService roleService;
 	
 	@Inject
 	private IBookService bookService;
@@ -55,15 +50,14 @@ public class BookController extends HttpServlet {
 		//CONTRONLLER VIEWS
 		if (model.getType().equals(SystemConstant.LIST)) {
 			UserModel userModel = (UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL");
-			RoleModel roleModel = roleService.findOneById(userModel.getRoleId());
 			
 			views = "/views/publisher/book/list.jsp";
 			
 			Pageable pageable = new Paging(model.getPage(), model.getMaxPageItem(),
 					new Sorter(model.getSortName(), model.getSortBy()));
 			
-			model.setListResult(bookService.findAllByRole(pageable, roleModel));
-			model.setTotalItem(bookService.getTotalItemByRole(roleModel.getCode()));
+			model.setListResult(bookService.findAllByPublisherName(pageable, userModel));
+			model.setTotalItem(bookService.getTotalItemByPublisherName(userModel.getUserName()));
 			model.setTotalPage((int) Math.ceil((double) model.getTotalItem() / model.getMaxPageItem() ));
 			
 		} else if (model.getType().equals(SystemConstant.EDIT)) {

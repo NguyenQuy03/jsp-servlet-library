@@ -1,0 +1,22 @@
+.link-download {
+    display: inline-block;
+    margin-top: 10px;
+    color: #fff;
+    background: #007bff;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.link-download:hover {
+	opacity: 0.8;
+	color: #fff;
+    text-decoration: none;
+}
+
+.card-body {
+	padding-bottom: 5px;
+}
+
+.book-img {
+	max-height: 400px;
+}

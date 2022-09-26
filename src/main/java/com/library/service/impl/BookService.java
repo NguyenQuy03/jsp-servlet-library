@@ -9,7 +9,7 @@ import com.library.dao.IBookDAO;
 import com.library.dao.ICategoryDAO;
 import com.library.model.BookModel;
 import com.library.model.CategoryModel;
-import com.library.model.RoleModel;
+import com.library.model.UserModel;
 import com.library.paging.Pageable;
 import com.library.service.IBookService;
 
@@ -22,8 +22,8 @@ public class BookService implements IBookService {
 	private ICategoryDAO categoryDAO;
 
 	@Override
-	public List<BookModel> findByCategoryId(Long categoryId) {
-		return bookDAO.findByCategoryId(categoryId);
+	public List<BookModel> findAllByCategoryId(Long categoryId, Pageable pageable) {
+		return bookDAO.findAllByCategoryId(categoryId, pageable);
 	}
 
 	@Override
@@ -77,13 +77,18 @@ public class BookService implements IBookService {
 	}
 
 	@Override
-	public List<BookModel> findAllByRole(Pageable pageable, RoleModel roleModel) {
-		return bookDAO.findAllByRole(pageable, roleModel);
+	public List<BookModel> findAllByPublisherName(Pageable pageable, UserModel userModel) {
+		return bookDAO.findAllByPublisherName(pageable, userModel);
 	}
 
 	@Override
-	public int getTotalItemByRole(String createdBy) {
-		return bookDAO.getTotalItemByRole(createdBy);
+	public int getTotalItemByPublisherName(String createdBy) {
+		return bookDAO.getTotalItemByPublisherName(createdBy);
+	}
+
+	@Override
+	public int getTotalItemByCategoryId(Long categoryId) {
+		return bookDAO.getTotalItemByCategoryId(categoryId);
 	}
 
 }

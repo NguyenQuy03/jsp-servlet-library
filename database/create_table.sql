@@ -50,18 +50,3 @@ CREATE TABLE category (
 );
 
 ALTER TABLE book ADD CONSTRAINT fk_book_category FOREIGN KEY (categoryId) REFERENCES category(id);
-
-CREATE TABLE comment (
-    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    content VARCHAR(255) NOT NULL,
-    userId bigint NOT NULL,
-    bookId bigint NOT NULL,
-    createdDate TIMESTAMP NULL,
-    modifiedDate TIMESTAMP NULL,
-    createdBy VARCHAR(255) NULL,
-    modifiedBy VARCHAR(255) NULL
-);
-
-ALTER TABLE comment ADD CONSTRAINT fk_comment_user FOREIGN KEY (userId) REFERENCES user(id);
-ALTER TABLE comment ADD CONSTRAINT fk_comment_book FOREIGN KEY (bookId) REFERENCES book(id);
-

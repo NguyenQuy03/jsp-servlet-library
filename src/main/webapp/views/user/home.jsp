@@ -7,8 +7,6 @@
 <meta charset="UTF-8">
 <title>Home Page</title>
 </head>
-<style>
-</style>
 <body>
 	<div class="row">
 
@@ -16,9 +14,14 @@
 
 			<h1 class="my-4">Danh mục</h1>
 			<div class="list-group">
-				<c:forEach var="item" items="${categories}">
-					<a href="#" class="list-group-item">${item.name}</a>
-				</c:forEach>
+					<c:forEach var="item" items="${categories}">
+						<c:url var="homeURL" value="/home">
+							<c:param name="page" value="1" />
+							<c:param name="maxPageItem" value="3" />
+							<c:param name="categoryId" value="${item.id}" />
+						</c:url>						
+						<a href='<c:url value="${homeURL}"/>' class="list-group-item" id="categoryCode" >${item.name}</a>
+					</c:forEach>
 			</div>
 
 		</div>
@@ -26,163 +29,67 @@
 
 		<div class="col-lg-9">
 
-			<div id="carouselExampleIndicators" class="carousel slide my-4"
-				data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#carouselExampleIndicators" data-slide-to="0"
-						class="active"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-				</ol>
-				<div class="carousel-inner" role="listbox">
-					<div class="carousel-item active">
-						<img class="d-block img-fluid" src="http://placehold.it/900x350"
-							alt="First slide">
-					</div>
-					<div class="carousel-item">
-						<img class="d-block img-fluid" src="http://placehold.it/900x350"
-							alt="Second slide">
-					</div>
-					<div class="carousel-item">
-						<img class="d-block img-fluid" src="http://placehold.it/900x350"
-							alt="Third slide">
-					</div>
-				</div>
-				<a class="carousel-control-prev" href="#carouselExampleIndicators"
-					role="button" data-slide="prev"> <span
-					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-					class="sr-only">Previous</span>
-				</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
-					role="button" data-slide="next"> <span
-					class="carousel-control-next-icon" aria-hidden="true"></span> <span
-					class="sr-only">Next</span>
-				</a>
-			</div>
-
 			<div class="row">
-
-				<div class="col-lg-4 col-md-6 mb-4">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Item One</a>
-							</h4>
-							<h5>$24.99</h5>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Amet numquam aspernatur!</p>
+					<c:forEach var="item" items="${books}">
+						<div class="book-content col-lg-4 col-md-6 mb-4">
+							<div class="card h-100">
+								<a href="#">
+									<img class="book-img card-img-top book-img"src="${item.thumbnail}" alt="">
+								</a>
+								<div class="card-body">
+									<h6 class="card-title book-title">${item.title}</h6>
+									<h6 class="book-author">${item.author}</h6>
+									<c:if test="${not empty USERMODEL}">
+										<a class="link-download" href="${item.linkDownload}" target="_blank">Download</a>
+									</c:if>
+								</div>
+								<div class="card-footer">
+									<p class="card-text book-shortDesc">${item.shortDescription}</p>
+								</div>
+							</div>
 						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733;
-								&#9734;</small>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-4 col-md-6 mb-4">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Item Two</a>
-							</h4>
-							<h5>$24.99</h5>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit
-								amet.</p>
-						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733;
-								&#9734;</small>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-4 col-md-6 mb-4">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Item Three</a>
-							</h4>
-							<h5>$24.99</h5>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Amet numquam aspernatur!</p>
-						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733;
-								&#9734;</small>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-4 col-md-6 mb-4">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Item Four</a>
-							</h4>
-							<h5>$24.99</h5>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Amet numquam aspernatur!</p>
-						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733;
-								&#9734;</small>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-4 col-md-6 mb-4">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Item Five</a>
-							</h4>
-							<h5>$24.99</h5>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit
-								amet.</p>
-						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733;
-								&#9734;</small>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-4 col-md-6 mb-4">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Item Six</a>
-							</h4>
-							<h5>$24.99</h5>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Amet numquam aspernatur!</p>
-						</div>
-						<div class="card-footer">
-							<small class="text-muted">&#9733; &#9733; &#9733; &#9733;
-								&#9734;</small>
-						</div>
-					</div>
-				</div>
+					</c:forEach>
 
 			</div>
 			<!-- /.row -->
+			<ul class="pagination" id="pagination"></ul>
 
 		</div>
 		<!-- /.col-lg-9 -->
-
+		
 	</div>
+	<div class="row">
+		<form method="get" id="formSubmit">	
+			<!-- Pagination -->
+			<nav aria-label="Page navigation">
+				<ul class="pagination" id="pagination"></ul>
+			</nav>
+			
+			<!-- Request Input value -->
+			<input type="hidden" value="" name="page" id="page">
+			<input type="hidden" value="" name="maxPageItem" id="maxPageItem">
+			<input type="hidden" value="" name="categoryCode" id="categoryCode">
+		</form>
+	</div>
+	
+	<script type="text/javascript">
+		var totalPage = ${model.totalPage};
+		var currPage = ${model.page};
+		var maxPageItem = 3;
+		$(function() {
+			window.pagObj = $('#pagination').twbsPagination({
+				totalPages : totalPage,
+				startPage : currPage,
+				visiblePages : 10,
+				onPageClick : function(event, page) {
+					if (currPage != page) {
+						$("#page").val(page);
+						$("#maxPageItem").val(maxPageItem);
+						$("#formSubmit").submit();
+					}
+				}
+			})
+		});
+	</script>
 </body>
 </html>

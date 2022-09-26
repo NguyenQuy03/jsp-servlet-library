@@ -1,0 +1,15 @@
+table th {
+	min-width: 80px;
+}
+	
+.alert-container {
+	position: fixed;
+	top: 50px;
+	left: 44%;
+	width: 300px;
+	text-align: center;    
+}
+
+#btnDelete {
+	margin-right: 20px
+}

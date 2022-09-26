@@ -39,12 +39,8 @@ public class BookAPI extends HttpServlet {
 		resp.setContentType("application/json");
 		
 		BookModel bookModel = HttpUtil.of(req.getReader()).toModel(BookModel.class);
-		UserModel userModel = userService.findByUserName(
-				((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getUserName()
-			);
-		RoleModel roleModel = roleService.findOneById(userModel.getRoleId());
 		
-		bookModel.setCreatedBy(roleModel.getCode());
+		bookModel.setCreatedBy(((UserModel) SessionUtil.getInstance().getValue(req, "USERMODEL")).getUserName());
 		bookModel = bookService.save(bookModel);
 		
 		mapper.writeValue(resp.getOutputStream(), bookModel);

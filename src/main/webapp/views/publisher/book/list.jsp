@@ -10,16 +10,6 @@
 <meta charset="UTF-8">
 <title>List Book</title>
 </head>
-<style>
-	table th {
-		min-width: 80px;
-	}
-	
-	#btnDelete {
-		margin-right: 10px !important;
-	}
-
-</style>
 
 <body>
 	<div class="main-content">
@@ -148,40 +138,50 @@
 		function allCheckBoxChecked() {
 			var result = true;
 			for(var i = 0; i < checkBoxes.length; i++) {
-			 	if(checkBoxes[i].checked == true) {
-			 		result = true;
-			 	} else {
+			 	if(checkBoxes[i].checked == false) {
 			 		result = false;
-				}
+			 	}
 			}
 			return result;
 		}
 		
 		function leastOneCheckBoxChecked() {
-			var result = true;
+			var result = false;
 			for(var i = 0; i < checkBoxes.length; i++) {
 			 	if(checkBoxes[i].checked == true) {
-			 		return result = true;
-			 	} else {
-			 		 result = false;
-				}
+			 		result = true;
+			 	}
 			}
 			return result;
 		}
 		
-		checkBoxes.map((index, item) => {
-			item.addEventListener("click", e => {
-				if(allCheckBoxChecked()) {
-					$("#checkAll").prop('checked', true);
-				} else if(leastOneCheckBoxChecked()) {
-					$("#btnDelete").removeClass("disabled");
-					$("#checkAll").prop('checked', false);
-				}  else {
-					$("#btnDelete").addClass("disabled");
-					$("#checkAll").prop('checked', false);
-				}
+		if (checkBoxes.length >= 2) {
+			checkBoxes.map((index, item) => {
+				item.addEventListener("click", e => {
+					if(allCheckBoxChecked()) {
+						$("#checkAll").prop('checked', true);
+					} else if(leastOneCheckBoxChecked()) {
+						$("#btnDelete").removeClass("disabled");
+						$("#checkAll").prop('checked', false);
+					}  else {
+						$("#btnDelete").addClass("disabled");
+						$("#checkAll").prop('checked', false);
+					}
+				})
+			})		
+		} else {
+			checkBoxes.map((index, item) => {
+				item.addEventListener("click", e => {
+					if (e.target.checked) {
+						$("#checkAll").prop('checked', true);
+						$("#btnDelete").removeClass("disabled");
+					} else {
+						$("#checkAll").prop('checked', false);
+						$("#btnDelete").addClass("disabled");
+					}
+				})
 			})
-		})		
+		}
 
 		$("#btnDelete").click(function() {
 			var data = {};

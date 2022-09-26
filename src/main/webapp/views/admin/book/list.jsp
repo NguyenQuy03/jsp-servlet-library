@@ -10,16 +10,6 @@
 <meta charset="UTF-8">
 <title>List Book</title>
 </head>
-<style>
-	table th {
-		min-width: 80px;
-	}
-	
-	#btnDelete {
-		margin-right: 10px !important;
-	}
-
-</style>
 
 <body>
 	<div class="main-content">
@@ -47,8 +37,7 @@
 										<button id="btnDelete" type="button" 
 											class=" disabled dt-button buttons-html5 btn btn-white btn-primary btn-bold"
 											data-toggle="tooltip" title='Xóa sách'>
-											<span> <i class="fa fa-trash-o bigger-110 pink"></i>
-											</span>
+											<span> <i class="fa fa-trash-o bigger-110 pink"></i></span>
 										</button>
 									</div>
 								</div>
@@ -68,7 +57,7 @@
 							<tbody>
 								<c:forEach var="item" items="${model.listResult}">
 									<tr>
-										<td><input type="checkbox" id="${item.id}"/></td>
+										<td><input class="check-box-item" type="checkbox" id="${item.id}"/></td>
 										<td>${item.title}</td>
 										<td>${item.shortDescription}</td>
 										<td>${item.author}</td>
@@ -101,7 +90,7 @@
 			</div>
 		</form>
 	</div>
-	<script>
+	<script type="text/javascript">
 		var totalPage = ${model.totalPage};
 		var currPage = ${model.page};
 		var maxPageItem = 2;
@@ -131,6 +120,7 @@
 		}
 		
 		var checkAll = document.getElementById('checkAll');
+		var checkBoxes = $(".check-box-item");
 		
 		checkAll.addEventListener('click', event => {
 			if(event.target.checked) {
@@ -140,30 +130,24 @@
 				$('tbody input[type=checkbox]').prop('checked',false);
 				$("#btnDelete").addClass("disabled");
 			}
-		});
-		
-		var checkBoxes = $('tbody input[type=checkbox]');
+		});		
 
 		function allCheckBoxChecked() {
 			var result = true;
 			for(var i = 0; i < checkBoxes.length; i++) {
-			 	if(checkBoxes[i].checked == true) {
-			 		result = true;
-			 	} else {
+			 	if(checkBoxes[i].checked == false) {
 			 		result = false;
-				}
+			 	}
 			}
 			return result;
 		}
 		
 		function leastOneCheckBoxChecked() {
-			var result = true;
+			var result = false;
 			for(var i = 0; i < checkBoxes.length; i++) {
 			 	if(checkBoxes[i].checked == true) {
-			 		return result = true;
-			 	} else {
-			 		 result = false;
-				}
+			 		result = true;
+			 	}
 			}
 			return result;
 		}

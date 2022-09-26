@@ -20,19 +20,12 @@ VALUES ("Perfect English Grammar","https://covers.zlibcdn2.com/covers299/books/4
 "Expert linguist Grant Barrett gives you all the tools you need to improve your everyday communication―from perfecting your punctuation to polishing your speaking skills―with his accessible, go-to grammar guide.",
 "Grant Barrett", 1, "https://book4you.org/dl/2857818/15aa77");
 
-//Comment
-INSERT INTO comment(content, userId, bookId)
-VALUES ("Thanks for sharing so good word book! It is very useful for me.",
-3, 1);
-
 //Category
 INSERT INTO category(name, code) VALUES ("Ngôn ngữ - Ngữ pháp", "Languages - Grammar");
-
 INSERT INTO category(name, code) VALUES ("Kinh doanh & Kinh tế", "Business & Economics");
+INSERT INTO category(name, code) VALUES ("Tự lực, Các mối quan hệ", "Self-Help, Relationships");
 
 //Role
 INSERT INTO role(name, code) VALUES ("Admin", "admin");
-
 INSERT INTO role(name, code) VALUES ("Publisher", "publisher");
-
 INSERT INTO role(name, code) VALUES ("User", "user");
