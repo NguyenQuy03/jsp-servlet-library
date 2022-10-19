@@ -73,7 +73,7 @@
 								<label class="col-sm-3 control-label no-padding-right">Tác giả</label>
 								<div class="col-sm-9">
 									<input type="text" class="form-control" id="author" name="author"
-										value="${model.author}" />
+										value="${model.author}"/>
 								</div>
 							</div>
 							<br /> <br />
@@ -127,15 +127,31 @@
 			e.preventDefault();
 	        var data = {};
 	        var formData = $('#formSubmit').serializeArray();
+	        var id = $('#id').val();
+	        
 	        $.each(formData, function (i, v) {
 	            data[""+v.name+""] = v.value;
 	        });
-
-	        var id = $('#id').val();
-	        if (!id) {
-	            addBook(data);
+	        
+	        function checkData() {
+	        	var result = true;
+	        	for (var i = 0; i < formData.length - 1; i++) {
+	        		if(!formData[i].value) {
+		        		result = false;
+	        		}
+	        	}
+		        return result;
+	        }
+			
+	        
+	        if (checkData()) {
+		        if (!id) {
+		            addBook(data);
+		        } else {
+		        	updateBook(data);
+		        }
 	        } else {
-	        	updateBook(data);
+	        	alert("Vui lòng điền đầy đủ các trường");
 	        }
 		});
 

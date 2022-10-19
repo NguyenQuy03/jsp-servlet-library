@@ -125,17 +125,31 @@
 	<script>
 		$("#btnAddOrUpdateBook").click(function(e) {
 			e.preventDefault();
+	        var id = $('#id').val();
 	        var data = {};
 	        var formData = $('#formSubmit').serializeArray();
 	        $.each(formData, function (i, v) {
 	            data[""+v.name+""] = v.value;
 	        });
 
-	        var id = $('#id').val();
-	        if (!id) {
-	            addBook(data);
+	        function checkData() {
+	        	var result = true;
+	        	for (var i = 0; i < formData.length - 1; i++) {
+	        		if(!formData[i].value) {
+		        		result = false;
+	        		}
+	        	}
+		        return result;
+	        }
+	        
+	        if (checkData()) {
+		        if (!id) {
+		            addBook(data);
+		        } else {
+		        	updateBook(data);
+		        }
 	        } else {
-	        	updateBook(data);
+	        	alert("Vui lòng điền đầy đủ các trường");
 	        }
 		});
 

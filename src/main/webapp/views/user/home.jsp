@@ -68,7 +68,6 @@
 			<!-- Request Input value -->
 			<input type="hidden" value="" name="page" id="page">
 			<input type="hidden" value="" name="maxPageItem" id="maxPageItem">
-			<input type="hidden" value="" name="categoryCode" id="categoryCode">
 		</form>
 	</div>
 	
